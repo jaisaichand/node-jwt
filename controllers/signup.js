@@ -36,7 +36,9 @@ app.post('/mainsignup', (req, res) => {
 })
 
 app.post('/mainget', (req, res) => {
-
+    console.log(req.body.jwt);
+    let userr = jwt.verify(req.body.jwt, process.env.token_secret);
+    res.status(200).json({ user: userr })
 })
 
 module.exports = app;
