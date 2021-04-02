@@ -17,20 +17,37 @@ dotenv.config();
 
 
 
-app.post('/mainsignup', (req, res) => {
+app.post('/mainsignup', async (req, res) => {
     console.log(req.body);
-    const personjwtinst = new personjwt({
+    const personjwtinst = await personjwt.create({
         name: req.body.name,
         username: req.body.username,
-        jwt: jwt.sign({ username: req.body.username }, process.env.token_secret)
+        jwt: ''
     });
+
+    console.log(personjwtinst);
+
+    personjwtinst.jwt = jwt.sign({ id: personjwtinst._id }, process.env.token_secret)
 
     personjwtinst.save((err, doc) => {
         console.log(doc)
-        res.status(200).json({ message: "check" })
+        res.status(200).json({ message: doc })
     })
 
     // console.log(res);
+
+
+})
+
+app.get('/mainsignup/:id', async (req, res) => {
+    console.log(req.params);
+
+    let resultt = await personjwt.findById(req.params.id);
+
+    console.log(resultt);
+
+    res.status(200).json({ message: resultt });
+
 
 
 })
