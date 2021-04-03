@@ -30,9 +30,9 @@ app.post('/addpost', async (req, res) => {
 app.get('/addpost/:id', async (req, res) => {
     console.log(req.params.id);
 
-    let findposts = await posts.findById(req.params.id).populate();
-let fun
-    res.status(200).json({ mess1: findposts, mess2: fun })
+    let findposts = await posts.findById(req.params.id).populate('userId');
+
+    res.status(200).json({ mess1: findposts })
 })
 
 module.exports = app;
