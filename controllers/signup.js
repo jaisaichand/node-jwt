@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 const bodyParser = require('body-parser');
 
-const personjwt = require('../models/userModeljwt');
+const personjwt = require('../models/userjwtmod');
 
 // app.use(bodyParser.json())
 
@@ -22,7 +22,10 @@ app.post('/mainsignup', async (req, res) => {
     const personjwtinst = await personjwt.create({
         name: req.body.name,
         username: req.body.username,
-        jwt: ''
+        jwt: '',
+        posts: [],
+        reports: [],
+        blocked: []
     });
 
     console.log(personjwtinst);
